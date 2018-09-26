@@ -167,7 +167,9 @@ add_options() {
 	{
 		echo "options {"
 		echo "    directory \"/var/cache/bind\";"
+        echo "    recursion yes;"
 		echo "    dnssec-validation ${dnssec_validate};"
+        echo "    dnssec-enable yes;"
 		echo "    auth-nxdomain no;    # conform to RFC1035"
 		echo "    listen-on-v6 { any; };"
 		if [ -n "${forwarders}" ]; then
@@ -175,6 +177,8 @@ add_options() {
 			printf       "${forwarders}"
 			echo "    };"
 		fi
+        echo "    forward only;"
+        echo "    allow-query { any; };"
 		echo "};"
 	} > "${config_file}"
 }
